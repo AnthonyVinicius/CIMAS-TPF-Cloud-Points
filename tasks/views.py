@@ -1,12 +1,20 @@
 from django.shortcuts import render
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-def upload_image(request):
-    image_url = None
+def upload_view(request):
     if request.method == 'POST' and request.FILES.get('image'):
-        image = request.FILES['image']
+        uploaded_image = request.FILES['image']
+
+        # Salva a imagem no diretório de mídia
         fs = FileSystemStorage()
-        filename = fs.save(image.name, image)
-        image_url = fs.url(filename)
+        filename = fs.save(uploaded_image.name, uploaded_image)
+        file_url = fs.url(filename)
+
+        return JsonResponse({'image_url': file_url})
     
-    return render(request, 'upload_image.html', {'image_url': image_url})
+    return render(request, 'upload_image.html')
+
+

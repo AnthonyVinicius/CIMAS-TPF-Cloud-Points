@@ -4,11 +4,55 @@
 
 {% block content %}
 <h2>Upload de Imagem</h2>
-<form method="POST" enctype="multipart/form-data">
+<form id="uploadForm" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <label for="image">Selecione uma imagem:</label>
     <input type="file" name="image" id="image" required>
     <button type="submit">Enviar</button>
 </form>
-{% endblock %}
 
+<div id="previewContainer" style="display:none; margin-top:20px;">
+    <h3>Imagem Carregada:</h3>
+    <img id="imagePreview" src="#" alt="Pré-visualização" style="max-width:100%; height:auto;">
+</div>
+
+<script>
+    const uploadForm = document.getElementById('uploadForm');
+    const imageInput = document.getElementById('image');
+    const previewContainer = document.getElementById('previewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+
+    // Quando o formulário for enviado
+    uploadForm.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Evita o envio tradicional do formulário
+
+        const formData = new FormData(uploadForm);
+
+        // Envia o arquivo via fetch
+        const response = await fetch("{% url 'upload_view' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': "{{ csrf_token }}",
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            // Mostra a imagem carregada no navegador
+            const file = imageInput.files[0];
+            const fileReader = new FileReader();
+
+            fileReader.onload = function(e) {
+                previewContainer.style.display = "block";
+                imagePreview.src = e.target.result; // Define a imagem como preview
+            };
+
+            fileReader.readAsDataURL(file); // Converte a imagem para URL base64
+        } else {
+            alert('Erro ao enviar a imagem.');
+        }
+    });
+</script>
+{% endblock %}

@@ -23,5 +23,5 @@ from tasks import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('upload/', views.upload_image, name='upload_image'),
+    path('upload/', views.upload_view, name='upload_view'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
