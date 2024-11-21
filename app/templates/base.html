@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +10,13 @@
         <h1>Meu Projeto Django</h1>
         <nav>
             <a href="/">Home</a>
-            <a href="/upload/">Upload</a>
+            <a href="/upload/">Upload de Arquivo</a>
         </nav>
     </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2024 Meu Projeto Django</p>
-    </footer>
+
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>

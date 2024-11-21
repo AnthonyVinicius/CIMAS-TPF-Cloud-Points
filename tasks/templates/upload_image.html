@@ -1,58 +1,25 @@
-{% extends "base.html" %}
-
-{% block title %}Upload de Imagem{% endblock %}
-
-{% block content %}
-<h2>Upload de Imagem</h2>
-<form id="uploadForm" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label for="image">Selecione uma imagem:</label>
-    <input type="file" name="image" id="image" required>
-    <button type="submit">Enviar</button>
-</form>
-
-<div id="previewContainer" style="display:none; margin-top:20px;">
-    <h3>Imagem Carregada:</h3>
-    <img id="imagePreview" src="#" alt="Pré-visualização" style="max-width:100%; height:auto;">
-</div>
-
-<script>
-    const uploadForm = document.getElementById('uploadForm');
-    const imageInput = document.getElementById('image');
-    const previewContainer = document.getElementById('previewContainer');
-    const imagePreview = document.getElementById('imagePreview');
-
-    // Quando o formulário for enviado
-    uploadForm.addEventListener('submit', async function(e) {
-        e.preventDefault(); // Evita o envio tradicional do formulário
-
-        const formData = new FormData(uploadForm);
-
-        // Envia o arquivo via fetch
-        const response = await fetch("{% url 'upload_view' %}", {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': "{{ csrf_token }}",
-            },
-            body: formData
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-
-            // Mostra a imagem carregada no navegador
-            const file = imageInput.files[0];
-            const fileReader = new FileReader();
-
-            fileReader.onload = function(e) {
-                previewContainer.style.display = "block";
-                imagePreview.src = e.target.result; // Define a imagem como preview
-            };
-
-            fileReader.readAsDataURL(file); // Converte a imagem para URL base64
-        } else {
-            alert('Erro ao enviar a imagem.');
-        }
-    });
-</script>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Arquivo LAS</title>
+</head>
+<body>
+    <h1>Upload de Arquivo LAS</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    {% if pontos %}
+        <h2>Arquivo Processado com Sucesso</h2>
+        <p>Aqui estão os pontos do arquivo:</p>
+        <pre>{{ pontos }}</pre>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">Selecione um arquivo .las:</label>
+        <input type="file" id="file" name="file" accept=".las" required>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
