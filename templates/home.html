@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Point Cloud{% endblock %}
+
+{% block content %}
+<div class="container">
+    
+    <p>Escolha uma das opções abaixo:</p>
+    <div class="button-container">
+        <a href="{{ url_for('las_view') }}" class="button">Manipular Arquivos LAS</a>
+        <a href="{{ url_for('ply_view') }}" class="button">Manipular Arquivos PLY</a>
+    </div>
+</div>
+{% endblock %}

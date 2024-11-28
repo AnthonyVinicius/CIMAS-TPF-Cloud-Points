@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Manipular Arquivos LAS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Manipulação de Arquivos LAS</h2>
+    <form action="{{ url_for('las_view') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".las" required>
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+{% endblock %}
