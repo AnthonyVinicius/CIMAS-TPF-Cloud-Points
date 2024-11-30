@@ -1,0 +1,57 @@
+body {
+    background: linear-gradient(135deg, #042c4c, #355474, #a3bcd5);
+    background-attachment: fixed;
+    color: #ffffff;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.logo-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.logo-container img {
+    width: 400px;
+    height: auto;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+
+.card-title {
+    color: #00284d;
+    font-weight: bold;
+}
+
+.card-text {
+    color: #555555;
+}
+
+.btn-custom {
+    background-color: #00284d;
+    color: #ffffff;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #004080;
+}
+
+.container-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 40px 0;
+}
