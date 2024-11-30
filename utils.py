@@ -19,24 +19,13 @@ def show_shortcuts():
     root.destroy()
 
 def process_and_visualize_las(file_path):
-    
-    # Mostrar atalhos antes da visualização
-    show_shortcuts()
 
-    # Ler o arquivo LAS
     point_cloud = lp.read(file_path)
-
-    # Dimensões e máximo do canal vermelho
-    print([dimension.name for dimension in point_cloud.point_format.dimensions])
-    print(np.max(point_cloud.red))
 
     # Pontos e cores
     points = np.vstack((point_cloud.x, point_cloud.y, point_cloud.z)).transpose()
     colors = np.vstack((point_cloud.red, point_cloud.green, point_cloud.blue)).transpose()
     colors = colors / 65535
-
-    print(f"Shape of points: {points.shape}") 
-    print(f"Shape of colors: {colors.shape}")
 
     # Amostragem aleatória de pontos
     sampled_indices = np.random.choice(points.shape[0], size=int(0.05 * points.shape[0]), replace=False)
